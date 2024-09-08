@@ -14,6 +14,17 @@ app.use(cookieParser());
 app.set('view engine','ejs')
 app.use(express.urlencoded({extended:true}))
 
+
+/*for clearing cache with all request */
+app.use((req, res, next) => {
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  res.set('Pragma', 'no-cache');
+  res.set('Expires', '-1');
+  next();
+});
+
+
+
 app.use('/',router)
 
 app.listen(4000,()=>{
