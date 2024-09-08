@@ -3,10 +3,7 @@ const userCollection = require('../collections/user')
 const PostSignIn = async (req,res)=>{
     try {
         const {email,password} = req.body
-        console.log(req.sessionID,'req.sessionID')
         res.cookie('user',req.sessionID,{maxAge:3600000,httpOnly:true})
-
-
         const result = await userCollection.findOne({email:email})
         if(!result) res.render('login',{message:'user does not exist '})
         const validate = await bcrypt.compare(password,result.password)
